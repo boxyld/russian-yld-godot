@@ -1,0 +1,122 @@
+[gd_scene load_steps=12 format=3 uid="uid://dee2lxulqfla5"]
+
+[ext_resource type="Texture2D" uid="uid://bg5had2slrskg" path="res://document_0.png" id="1_gqxjp"]
+[ext_resource type="Texture2D" uid="uid://b2b3nxqgnerr0" path="res://warn/warm.png" id="2_rrrh0"]
+[ext_resource type="Script" path="res://yldman.gd" id="3_hkc57"]
+[ext_resource type="Script" path="res://Button.gd" id="4_xxpos"]
+[ext_resource type="Script" path="res://Button2.gd" id="5_xesjm"]
+[ext_resource type="Texture2D" uid="uid://x5fm2b34d66p" path="res://warn/?.png" id="6_brhrr"]
+[ext_resource type="Script" path="res://11212.gd" id="7_s6tfn"]
+
+[sub_resource type="Animation" id="Animation_3dlqa"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g46mr"]
+_data = {
+"open": SubResource("Animation_3dlqa")
+}
+
+[sub_resource type="Animation" id="Animation_kmubx"]
+resource_name = "end2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rrfwv"]
+_data = {
+"end2": SubResource("Animation_kmubx")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 1, 1)
+self_modulate = Color(1, 0, 0, 1)
+position = Vector2(513, 364)
+texture = ExtResource("1_gqxjp")
+
+[node name="?" type="Sprite2D" parent="."]
+position = Vector2(1082, 56)
+scale = Vector2(0.133333, 0.138889)
+texture = ExtResource("6_brhrr")
+
+[node name="Warm" type="Sprite2D" parent="."]
+position = Vector2(605, 328)
+scale = Vector2(0.453646, 0.507407)
+texture = ExtResource("2_rrrh0")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0)
+self_modulate = Color(1, 0, 0, 1)
+position = Vector2(519, 363)
+texture = ExtResource("1_gqxjp")
+
+[node name="yldman" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D2")
+libraries = {
+"": SubResource("AnimationLibrary_g46mr")
+}
+script = ExtResource("3_hkc57")
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 343.0
+offset_top = 453.0
+offset_right = 450.0
+offset_bottom = 520.0
+script = ExtResource("4_xxpos")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Button"]
+root_node = NodePath("../../Sprite2D2")
+libraries = {
+"": SubResource("AnimationLibrary_rrfwv")
+}
+
+[node name="Button2" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 724.0
+offset_top = 456.0
+offset_right = 823.0
+offset_bottom = 514.0
+script = ExtResource("5_xesjm")
+
+[node name="Button3" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 1016.0
+offset_top = 8.0
+offset_right = 1143.0
+offset_bottom = 99.0
+script = ExtResource("7_s6tfn")
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="Button3"]
+root_node = NodePath("../../Sprite2D2")
+libraries = {
+"": SubResource("AnimationLibrary_rrfwv")
+}
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="animation_finished" from="Button/AnimationPlayer2" to="Button" method="_on_animation_player_2_animation_finished"]
+[connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]
+[connection signal="pressed" from="Button3" to="Button3" method="_on_pressed"]
+[connection signal="animation_finished" from="Button3/AnimationPlayer3" to="Button3" method="_on_animation_player_3_animation_finished"]
